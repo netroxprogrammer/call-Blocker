@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Name"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/manual_contact_name_view"
+        />
+
+    <EditText
+        android:id="@+id/manual_contact_name_txt"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/manual_contact_name_view"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#34f"
+        android:layout_below="@+id/manual_contact_name_txt"
+        android:layout_marginTop="5dp"
+        />
+    <TextView
+        android:id="@+id/manual_contact_number_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/manual_contact_name_txt"
+        android:text="Add Number"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <EditText
+        android:id="@+id/manual_contact_number_txt"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:inputType="phone"
+        android:layout_below="@+id/manual_contact_number_view" />
+
+</RelativeLayout>

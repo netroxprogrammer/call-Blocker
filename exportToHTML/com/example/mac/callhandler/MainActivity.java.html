@@ -1,0 +1,104 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s4 { color: rgb(0,128,0); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+MainActivity.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+
+<a name="l1"><span class="ln">1    </span></a><span class="s0">package </span><span class="s1">com.example.mac.callhandler; 
+<a name="l2"><span class="ln">2    </span></a> 
+<a name="l3"><span class="ln">3    </span></a></span><span class="s0">import </span><span class="s1">android.database.Cursor; 
+<a name="l4"><span class="ln">4    </span></a></span><span class="s0">import </span><span class="s1">android.net.Uri; 
+<a name="l5"><span class="ln">5    </span></a></span><span class="s0">import </span><span class="s1">android.provider.ContactsContract; 
+<a name="l6"><span class="ln">6    </span></a></span><span class="s0">import </span><span class="s1">android.support.v7.app.AppCompatActivity; 
+<a name="l7"><span class="ln">7    </span></a></span><span class="s0">import </span><span class="s1">android.os.Bundle; 
+<a name="l8"><span class="ln">8    </span></a></span><span class="s0">import </span><span class="s1">android.util.Log; 
+<a name="l9"><span class="ln">9    </span></a></span><span class="s0">import </span><span class="s1">android.widget.ListView; 
+<a name="l10"><span class="ln">10   </span></a></span><span class="s0">import </span><span class="s1">android.widget.Toast; 
+<a name="l11"><span class="ln">11   </span></a> 
+<a name="l12"><span class="ln">12   </span></a></span><span class="s0">import </span><span class="s1">com.example.mac.callhandler.adapters.ContactListAdapter; 
+<a name="l13"><span class="ln">13   </span></a></span><span class="s0">import </span><span class="s1">com.example.mac.callhandler.util.Contacts; 
+<a name="l14"><span class="ln">14   </span></a> 
+<a name="l15"><span class="ln">15   </span></a></span><span class="s0">import </span><span class="s1">java.util.ArrayList; 
+<a name="l16"><span class="ln">16   </span></a></span><span class="s0">import </span><span class="s1">java.util.List; 
+<a name="l17"><span class="ln">17   </span></a> 
+<a name="l18"><span class="ln">18   </span></a></span><span class="s0">public class </span><span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity { 
+<a name="l19"><span class="ln">19   </span></a>    </span><span class="s0">private </span><span class="s1">List&lt;Contacts&gt; simContacts; 
+<a name="l20"><span class="ln">20   </span></a>    ContactListAdapter contactListAdapter; 
+<a name="l21"><span class="ln">21   </span></a>    @Override 
+<a name="l22"><span class="ln">22   </span></a>    </span><span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) { 
+<a name="l23"><span class="ln">23   </span></a>        </span><span class="s0">super</span><span class="s1">.onCreate(savedInstanceState); 
+<a name="l24"><span class="ln">24   </span></a>        setContentView(R.layout.activity_main); 
+<a name="l25"><span class="ln">25   </span></a> 
+<a name="l26"><span class="ln">26   </span></a>      simContacts= </span><span class="s0">new </span><span class="s1">ArrayList&lt;&gt;(); 
+<a name="l27"><span class="ln">27   </span></a>       getContactList(); 
+<a name="l28"><span class="ln">28   </span></a>    } 
+<a name="l29"><span class="ln">29   </span></a> 
+<a name="l30"><span class="ln">30   </span></a>    </span><span class="s2">/** 
+<a name="l31"><span class="ln">31   </span></a>     * </span><span class="s3">@param</span><span class="s2"> 
+<a name="l32"><span class="ln">32   </span></a>     * </span><span class="s3">@CallAdaper </span><span class="s2">and  Make  LsitView pass Adaptrer  to the ListView 
+<a name="l33"><span class="ln">33   </span></a>     */</span><span class="s1"> 
+<a name="l34"><span class="ln">34   </span></a> 
+<a name="l35"><span class="ln">35   </span></a>    </span><span class="s0">public  void </span><span class="s1">callAdapter(List&lt;Contacts&gt; myContacts){ 
+<a name="l36"><span class="ln">36   </span></a>        contactListAdapter= </span><span class="s0">new </span><span class="s1">ContactListAdapter(getApplicationContext(),myContacts); 
+<a name="l37"><span class="ln">37   </span></a>        ListView contactlsitView = (ListView)findViewById(R.id.activity_main_contactList); 
+<a name="l38"><span class="ln">38   </span></a>        contactlsitView.setAdapter(contactListAdapter); 
+<a name="l39"><span class="ln">39   </span></a>    } 
+<a name="l40"><span class="ln">40   </span></a> 
+<a name="l41"><span class="ln">41   </span></a>    </span><span class="s2">/** 
+<a name="l42"><span class="ln">42   </span></a>     * </span><span class="s3">@Get </span><span class="s2">Contact List From Sim 
+<a name="l43"><span class="ln">43   </span></a>     */</span><span class="s1"> 
+<a name="l44"><span class="ln">44   </span></a> 
+<a name="l45"><span class="ln">45   </span></a>    </span><span class="s0">public void </span><span class="s1">getContactList(){ 
+<a name="l46"><span class="ln">46   </span></a> 
+<a name="l47"><span class="ln">47   </span></a>        Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, </span><span class="s0">null</span><span class="s1">,</span><span class="s0">null</span><span class="s1">,</span><span class="s0">null</span><span class="s1">, </span><span class="s0">null</span><span class="s1">); 
+<a name="l48"><span class="ln">48   </span></a>        </span><span class="s0">while </span><span class="s1">(phones.moveToNext()) 
+<a name="l49"><span class="ln">49   </span></a>        { 
+<a name="l50"><span class="ln">50   </span></a>            String name=phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)); 
+<a name="l51"><span class="ln">51   </span></a>            String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)); 
+<a name="l52"><span class="ln">52   </span></a>            Contacts contacts = </span><span class="s0">new </span><span class="s1">Contacts(); 
+<a name="l53"><span class="ln">53   </span></a>            contacts.setName(name); 
+<a name="l54"><span class="ln">54   </span></a>            contacts.setNumber(phoneNumber); 
+<a name="l55"><span class="ln">55   </span></a>            simContacts.add(contacts); 
+<a name="l56"><span class="ln">56   </span></a> 
+<a name="l57"><span class="ln">57   </span></a>            Log.v(</span><span class="s4">&quot;Numbers:&quot;</span><span class="s1">,name+</span><span class="s4">&quot; == &quot;</span><span class="s1">+phoneNumber); 
+<a name="l58"><span class="ln">58   </span></a>        } 
+<a name="l59"><span class="ln">59   </span></a>        callAdapter(simContacts); 
+<a name="l60"><span class="ln">60   </span></a>        </span><span class="s2">///Log.v(&quot;Numbers:&quot;,simContacts.toString());</span><span class="s1"> 
+<a name="l61"><span class="ln">61   </span></a>        phones.close(); 
+<a name="l62"><span class="ln">62   </span></a> 
+<a name="l63"><span class="ln">63   </span></a>      </span><span class="s2">/*  Uri simUri = Uri.parse(&quot;content://icc/adn&quot;); 
+<a name="l64"><span class="ln">64   </span></a>        Cursor cursorSim    = this.getContentResolver().query(simUri, null, null,null, null); 
+<a name="l65"><span class="ln">65   </span></a> 
+<a name="l66"><span class="ln">66   </span></a>        while (cursorSim.moveToNext()) { 
+<a name="l67"><span class="ln">67   </span></a>            String  name=cursorSim.getString(cursorSim.getColumnIndex(&quot;name&quot;)); 
+<a name="l68"><span class="ln">68   </span></a>            String number =  cursorSim.getString(cursorSim.getColumnIndex(&quot;number&quot;)); 
+<a name="l69"><span class="ln">69   </span></a>            Contacts contacts = new Contacts(); 
+<a name="l70"><span class="ln">70   </span></a>            contacts.setName(name); 
+<a name="l71"><span class="ln">71   </span></a>            contacts.setNumber(number); 
+<a name="l72"><span class="ln">72   </span></a>            simContacts.add(contacts); 
+<a name="l73"><span class="ln">73   </span></a>            callAdapter(simContacts); 
+<a name="l74"><span class="ln">74   </span></a> 
+<a name="l75"><span class="ln">75   </span></a>            Log.v(&quot;Numbers:&quot;,name+&quot;--&quot;+number); 
+<a name="l76"><span class="ln">76   </span></a>              Toast.makeText(this,cursorSim.getString(cursorSim.getColumnIndex(&quot;_id&quot;)),Toast.LENGTH_SHORT).show(); 
+<a name="l77"><span class="ln">77   </span></a>        }*/</span><span class="s1"> 
+<a name="l78"><span class="ln">78   </span></a>    } 
+<a name="l79"><span class="ln">79   </span></a> 
+<a name="l80"><span class="ln">80   </span></a>} 
+<a name="l81"><span class="ln">81   </span></a></span></pre>
+</body>
+</html>
